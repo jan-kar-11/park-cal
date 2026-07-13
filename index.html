@@ -709,21 +709,11 @@
     <div class="form-row" id="timeRow">
       <div class="form-group">
         <label class="form-label">Start time</label>
-        <select class="form-input" id="evStartTime">
-          ${Array.from({length:24},(_,h)=>['00','15','30','45'].map(m=>{
-            const hh=String(h).padStart(2,'0');
-            return `<option value="${hh}:${m}">${hh}:${m}</option>`;
-          })).flat().join('')}
-        </select>
+        <select class="form-input" id="evStartTime"></select>
       </div>
       <div class="form-group">
         <label class="form-label">End time</label>
-        <select class="form-input" id="evEndTime">
-          ${Array.from({length:24},(_,h)=>['00','15','30','45'].map(m=>{
-            const hh=String(h).padStart(2,'0');
-            return `<option value="${hh}:${m}">${hh}:${m}</option>`;
-          })).flat().join('')}
-        </select>
+        <select class="form-input" id="evEndTime"></select>
       </div>
     </div>
 
@@ -1113,7 +1103,7 @@ function renderWeek() {
   }
   bodyRow.appendChild(tCol);
 
-  weekDays.forEach(d => {
+  weekDays.forEach((d, i) => {
     const ds = d.toFullYear();
     const col = document.createElement('div');
     col.className = 'week-day-col';
@@ -1123,8 +1113,23 @@ function renderWeek() {
       line.style.top = (h*60)+'px';
       col.appendChild(line);
     }
-    const dayEvs = getVisibleEvents().filter(e => e.date === ds && e.startTime);
-    dayEvs.forEach(ev => {
+    const allDayEvs = getVisibleEvents().filter(e => e.date === ds && e.allDay);
+    const timedEvs = getVisibleEvents().filter(e => e.date === ds && !e.allDay && e.startTime);
+
+    // All-day banner in header
+    if (allDayEvs.length) {
+      allDayEvs.forEach(ev => {
+        const badge = document.createElement('div');
+        badge.style.cssText = `font-size:9px;font-family:var(--mono);background:${getTagColor(ev.tag)};color:#fff;border-radius:3px;padding:1px 4px;margin:1px 2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;`;
+        badge.textContent = ev.title;
+        badge.onclick = () => showDetail(ev.id);
+        // append to the day's header cell
+        const hd = headerRow.querySelectorAll('.week-day-header')[i];
+        if (hd) hd.appendChild(badge);
+      });
+    }
+
+    timedEvs.forEach(ev => {
       const [sh,sm] = ev.startTime.split(':').map(Number);
       const [eh,em] = ev.endTime ? ev.endTime.split(':').map(Number) : [sh+1,sm];
       const top = sh*60+sm;
@@ -1200,8 +1205,24 @@ function renderDay() {
     eCol.appendChild(line);
   }
 
-  const dayEvs = getVisibleEvents().filter(e => e.date === ds);
-  dayEvs.forEach(ev => {
+  const allDayEvs = getVisibleEvents().filter(e => e.date === ds && e.allDay);
+  const timedEvs = getVisibleEvents().filter(e => e.date === ds && !e.allDay);
+
+  // All-day banner
+  if (allDayEvs.length) {
+    const banner = document.createElement('div');
+    banner.style.cssText = 'padding:6px 12px 6px 68px;border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:4px;flex-shrink:0;';
+    allDayEvs.forEach(ev => {
+      const badge = document.createElement('div');
+      badge.style.cssText = `background:${getTagColor(ev.tag)};color:#fff;border-radius:4px;padding:3px 10px;font-family:var(--mono);font-size:11px;cursor:pointer;`;
+      badge.textContent = '● ' + ev.title;
+      badge.onclick = () => showDetail(ev.id);
+      banner.appendChild(badge);
+    });
+    view.appendChild(banner);
+  }
+
+  timedEvs.forEach(ev => {
     const [sh,sm] = ev.startTime ? ev.startTime.split(':').map(Number) : [8,0];
     const [eh,em] = ev.endTime ? ev.endTime.split(':').map(Number) : [sh+1,sm];
     const top = sh*60+sm;
@@ -1777,6 +1798,20 @@ document.addEventListener('keydown', e => {
 });
 
 // ── Init ───────────────────────────────────────────
+// Populate time selects
+function buildTimeOptions() {
+  const opts = [];
+  for (let h = 0; h < 24; h++) {
+    for (const m of ['00','15','30','45']) {
+      const hh = String(h).padStart(2,'0');
+      opts.push(`<option value="${hh}:${m}">${hh}:${m}</option>`);
+    }
+  }
+  const html = opts.join('');
+  document.getElementById('evStartTime').innerHTML = html;
+  document.getElementById('evEndTime').innerHTML = html;
+}
+buildTimeOptions();
 render();
 autoSync();
 </script>
