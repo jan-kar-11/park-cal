@@ -584,6 +584,183 @@
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
 
+  /* ── Notes view ── */
+  .notes-view { flex: 1; display: flex; overflow: hidden; }
+  .notes-list {
+    width: 260px; flex-shrink: 0;
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+  .notes-list-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+    flex-shrink: 0;
+  }
+  .notes-search {
+    flex: 1; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 5px;
+    padding: 6px 10px; color: var(--text);
+    font-family: var(--mono); font-size: 11px;
+    outline: none;
+  }
+  .notes-search:focus { border-color: var(--accent); }
+  .notes-type-tabs {
+    display: flex; border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .notes-type-tab {
+    flex: 1; padding: 8px 4px;
+    font-family: var(--mono); font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim); background: none; border: none;
+    cursor: pointer; border-bottom: 2px solid transparent;
+    transition: all 0.12s;
+  }
+  .notes-type-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .notes-items { flex: 1; overflow-y: auto; }
+  .note-item {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer; transition: background 0.1s;
+  }
+  .note-item:hover { background: var(--surface2); }
+  .note-item.active { background: var(--surface2); border-left: 2px solid var(--accent); }
+  .note-item-title {
+    font-size: 12px; color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    margin-bottom: 3px; font-weight: 500;
+  }
+  .note-item-preview {
+    font-size: 11px; color: var(--text-dim);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .note-item-meta {
+    font-family: var(--mono); font-size: 9px; color: var(--border);
+    margin-top: 4px; letter-spacing: 0.06em;
+  }
+  .todo-item {
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-start; gap: 10px;
+    cursor: pointer; transition: background 0.1s;
+  }
+  .todo-item:hover { background: var(--surface2); }
+  .todo-item.active { background: var(--surface2); border-left: 2px solid var(--accent2); }
+  .todo-check {
+    width: 16px; height: 16px; border-radius: 4px;
+    border: 1px solid var(--border); flex-shrink: 0;
+    margin-top: 1px; display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s; cursor: pointer;
+  }
+  .todo-check.done { background: var(--accent2); border-color: var(--accent2); }
+  .todo-check.done::after { content: '✓'; font-size: 10px; color: #fff; }
+  .todo-item-text {
+    font-size: 12px; color: var(--text); flex: 1;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .todo-item-text.done { color: var(--text-dim); text-decoration: line-through; }
+
+  /* Notes editor panel */
+  .notes-editor {
+    flex: 1; display: flex; flex-direction: column; overflow: hidden;
+  }
+  .notes-editor-header {
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px;
+    flex-shrink: 0;
+  }
+  .notes-editor-title {
+    flex: 1; background: none; border: none;
+    font-family: var(--mono); font-size: 14px;
+    color: var(--text); outline: none;
+    letter-spacing: 0.04em;
+  }
+  .notes-editor-title::placeholder { color: var(--text-dim); }
+  .notes-editor-body {
+    flex: 1; padding: 20px;
+    font-size: 13px; color: var(--text);
+    background: none; border: none; outline: none;
+    resize: none; line-height: 1.75;
+    font-family: var(--sans);
+  }
+  .notes-editor-body::placeholder { color: var(--text-dim); }
+  .notes-empty {
+    flex: 1; display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 10px;
+    color: var(--text-dim); font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.08em;
+  }
+
+  /* Todo editor */
+  .todo-editor { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+  .todo-editor-header {
+    padding: 14px 20px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 10px; flex-shrink: 0;
+  }
+  .todo-add-row {
+    padding: 12px 20px; border-bottom: 1px solid var(--border);
+    display: flex; gap: 8px; flex-shrink: 0;
+  }
+  .todo-add-input {
+    flex: 1; background: var(--surface2);
+    border: 1px solid var(--border); border-radius: 5px;
+    padding: 7px 10px; color: var(--text);
+    font-family: var(--sans); font-size: 13px; outline: none;
+  }
+  .todo-add-input:focus { border-color: var(--accent2); }
+  .todo-list-full { flex: 1; overflow-y: auto; }
+  .todo-full-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 20px; border-bottom: 1px solid var(--border);
+    transition: background 0.1s;
+  }
+  .todo-full-item:hover { background: var(--surface); }
+  .todo-full-check {
+    width: 18px; height: 18px; border-radius: 5px;
+    border: 1px solid var(--border); flex-shrink: 0;
+    margin-top: 2px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .todo-full-check.done { background: var(--accent2); border-color: var(--accent2); }
+  .todo-full-check.done::after { content: '✓'; font-size: 11px; color: #fff; }
+  .todo-full-text {
+    flex: 1; font-size: 13px; color: var(--text); line-height: 1.5;
+    outline: none; background: none; border: none;
+    font-family: var(--sans); resize: none; min-height: 20px;
+  }
+  .todo-full-text.done { color: var(--text-dim); text-decoration: line-through; }
+  .todo-del {
+    background: none; border: none; color: var(--border);
+    cursor: pointer; font-size: 14px; padding: 2px 4px;
+    transition: color 0.12s; flex-shrink: 0;
+  }
+  .todo-del:hover { color: #f87171; }
+
+  .cat-row {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 0; border-bottom: 1px solid var(--border);
+  }
+  .cat-dot-btn {
+    width: 22px; height: 22px; border-radius: 5px;
+    border: none; cursor: pointer; flex-shrink: 0;
+  }
+  .cat-name-input {
+    flex: 1; background: none; border: none;
+    color: var(--text); font-family: var(--mono);
+    font-size: 12px; outline: none; padding: 2px 0;
+  }
+  .cat-name-input:focus { border-bottom: 1px solid var(--accent); }
+  .cat-del {
+    background: none; border: none; color: var(--border);
+    cursor: pointer; font-size: 14px; padding: 2px 6px;
+    transition: color 0.12s;
+  }
+  .cat-del:hover { color: #f87171; }
+
   /* Mobile */
   @media (max-width: 600px) {
     .sidebar { display: none; }
@@ -634,6 +811,7 @@
       <button class="view-btn active" onclick="setView('month')">Month</button>
       <button class="view-btn" onclick="setView('week')">Week</button>
       <button class="view-btn" onclick="setView('day')">Day</button>
+      <button class="view-btn" onclick="setView('notes')">Notes</button>
     </div>
     <div class="topbar-actions">
       <div class="sync-indicator" id="syncIndicator" onclick="showSyncModal()" title="GitHub Gist sync settings">
@@ -642,30 +820,13 @@
       </div>
       <button class="btn btn-mobile-hide" onclick="showImport()">↓ Import Notes</button>
       <button class="btn btn-mobile-hide" onclick="showExport()">↑ Export</button>
+      <button class="btn btn-mobile-hide" onclick="showManageCategories()">Tags</button>
       <button class="btn primary desktop-add" onclick="showAdd()">+ Add</button>
     </div>
   </div>
 
   <!-- Main -->
   <div class="main">
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <div>
-        <div class="mini-nav">
-          <button class="mini-nav-btn" onclick="miniPrev()">‹</button>
-          <div class="mini-month-label" id="miniMonthLabel"></div>
-          <button class="mini-nav-btn" onclick="miniNext()">›</button>
-        </div>
-        <div class="mini-cal">
-          <div class="mini-cal-grid" id="miniCalGrid"></div>
-        </div>
-      </div>
-      <div class="sidebar-section">
-        <div class="sidebar-label">Categories</div>
-        <div class="tag-list" id="tagList"></div>
-      </div>
-    </div>
-
     <!-- Calendar -->
     <div class="calendar-area" id="calendarArea">
       <!-- rendered by JS -->
@@ -785,8 +946,28 @@
   </div>
 </div>
 
+<!-- Category Management Modal -->
+<div class="modal-overlay hidden" id="categoriesModal">
+  <div class="modal" style="width:420px;">
+    <div class="modal-title">
+      Manage Categories
+      <button class="modal-close" onclick="closeManageCategories()">✕</button>
+    </div>
+    <div id="categoriesList" style="margin-bottom:16px;"></div>
+    <div style="border-top:1px solid var(--border);padding-top:14px;">
+      <div class="sidebar-label" style="margin-bottom:8px;">Add new category</div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <input class="form-input" id="newCatName" placeholder="Category name" style="flex:1;min-width:120px;" />
+        <input type="color" id="newCatColor" value="#3b6ea8"
+          style="width:36px;height:36px;border:1px solid var(--border);border-radius:5px;background:var(--surface2);cursor:pointer;padding:2px;" />
+        <button class="btn primary" onclick="addCategory()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- FAB for mobile -->
-<button class="fab" onclick="showAdd()">+</button>
+<button class="fab" id="mainFab" onclick="fabAction()">+</button>
 
 <!-- GitHub Sync Modal -->
 <div class="modal-overlay hidden sync-modal" id="syncModal">
@@ -839,15 +1020,28 @@
 
 <script>
 // ── State ──────────────────────────────────────────
-const TAGS = [
+const DEFAULT_TAGS = [
   { key: 'work',     label: 'Work',     color: '#3b6ea8' },
   { key: 'hockey',   label: 'Hockey',   color: '#1a6b4a' },
   { key: 'personal', label: 'Personal', color: '#6b3a8a' },
   { key: 'finance',  label: 'Finance',  color: '#8a5a1a' },
   { key: 'health',   label: 'Health',   color: '#8a1a1a' },
 ];
+let TAGS = loadTags();
+
+function loadTags() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('park_cal_tags') || 'null');
+    return saved || DEFAULT_TAGS;
+  } catch { return DEFAULT_TAGS; }
+}
+function saveTags() {
+  localStorage.setItem('park_cal_tags', JSON.stringify(TAGS));
+}
 
 let events = loadEvents();
+let notes = loadNotes();
+let todos = loadTodos();
 let currentDate = new Date();
 let currentView = 'month';
 let selectedDate = toDateStr(new Date());
@@ -858,9 +1052,24 @@ let selectedTag = null;
 let parsedImport = [];
 
 function loadEvents() {
-  try {
-    return JSON.parse(localStorage.getItem('park_cal_events') || '[]');
-  } catch { return []; }
+  try { return JSON.parse(localStorage.getItem('park_cal_events') || '[]'); }
+  catch { return []; }
+}
+function loadNotes() {
+  try { return JSON.parse(localStorage.getItem('park_cal_notes') || '[]'); }
+  catch { return []; }
+}
+function loadTodos() {
+  try { return JSON.parse(localStorage.getItem('park_cal_todos') || '[]'); }
+  catch { return []; }
+}
+function saveNotes() {
+  localStorage.setItem('park_cal_notes', JSON.stringify(notes));
+  if (syncConfig.token && syncConfig.gistId) pushToGist().catch(() => {});
+}
+function saveTodos() {
+  localStorage.setItem('park_cal_todos', JSON.stringify(todos));
+  if (syncConfig.token && syncConfig.gistId) pushToGist().catch(() => {});
 }
 function saveEvents() {
   localStorage.setItem('park_cal_events', JSON.stringify(events));
@@ -888,11 +1097,13 @@ function render() {
   renderTagList();
   if (currentView === 'month') renderMonth();
   else if (currentView === 'week') renderWeek();
-  else renderDay();
+  else if (currentView === 'day') renderDay();
+  else if (currentView === 'notes') renderNotes();
 }
 
 function renderTagList() {
   const el = document.getElementById('tagList');
+  if (!el) return;
   const counts = {};
   events.forEach(e => { counts[e.tag] = (counts[e.tag]||0)+1; });
   el.innerHTML = `
@@ -918,9 +1129,11 @@ function getVisibleEvents() {
 
 // ── Mini calendar ──────────────────────────────────
 function renderMiniCal() {
-  document.getElementById('miniMonthLabel').textContent =
-    miniDate.toLocaleString('en',{month:'short',year:'numeric'}).toUpperCase();
+  const label = document.getElementById('miniMonthLabel');
   const grid = document.getElementById('miniCalGrid');
+  if (!label || !grid) return;
+  label.textContent =
+    miniDate.toLocaleString('en',{month:'short',year:'numeric'}).toUpperCase();
   const days = ['S','M','T','W','T','F','S'];
   const year = miniDate.getFullYear();
   const month = miniDate.getMonth();
@@ -1252,6 +1465,247 @@ function renderDay() {
   area.appendChild(view);
 }
 
+// ── Notes view ─────────────────────────────────────
+let activeNoteId = null;
+let notesTab = 'notes'; // 'notes' | 'todos'
+let notesSearch = '';
+let activeTodoListId = null;
+
+function renderNotes() {
+  const area = document.getElementById('calendarArea');
+  area.innerHTML = '';
+
+  const view = document.createElement('div');
+  view.className = 'notes-view';
+  view.id = 'notesViewEl';
+  view.dataset.tab = notesTab;
+
+  // Left panel
+  const listPanel = document.createElement('div');
+  listPanel.className = 'notes-list';
+
+  // Search
+  const listHeader = document.createElement('div');
+  listHeader.className = 'notes-list-header';
+  listHeader.innerHTML = `<input class="notes-search" placeholder="Search…" value="${notesSearch}" oninput="notesSearch=this.value;renderNotes()"/>
+    <button class="btn" style="padding:5px 10px;font-size:10px;" onclick="${notesTab==='notes'?'newNote()':'addTodo()'}">+</button>`;
+  listPanel.appendChild(listHeader);
+
+  // Tabs
+  const typeTabs = document.createElement('div');
+  typeTabs.className = 'notes-type-tabs';
+  typeTabs.innerHTML = `
+    <button class="notes-type-tab ${notesTab==='notes'?'active':''}" onclick="switchNotesTab('notes')">Notes</button>
+    <button class="notes-type-tab ${notesTab==='todos'?'active':''}" onclick="switchNotesTab('todos')">To-do</button>`;
+  listPanel.appendChild(typeTabs);
+
+  const items = document.createElement('div');
+  items.className = 'notes-items';
+
+  if (notesTab === 'notes') {
+    const filtered = notes.filter(n =>
+      !notesSearch || n.title.toLowerCase().includes(notesSearch.toLowerCase()) ||
+      n.body.toLowerCase().includes(notesSearch.toLowerCase())
+    ).sort((a,b) => b.updatedAt - a.updatedAt);
+
+    if (!filtered.length) {
+      items.innerHTML = `<div style="padding:20px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text-dim);">No notes yet.<br>Tap + to create one.</div>`;
+    }
+    filtered.forEach(n => {
+      const el = document.createElement('div');
+      el.className = 'note-item' + (n.id === activeNoteId ? ' active' : '');
+      el.innerHTML = `
+        <div class="note-item-title">${n.title || 'Untitled'}</div>
+        <div class="note-item-preview">${n.body.slice(0,60).replace(/\n/g,' ') || 'No content'}</div>
+        <div class="note-item-meta">${new Date(n.updatedAt).toLocaleDateString('en',{month:'short',day:'numeric'})}</div>`;
+      el.onclick = () => { activeNoteId = n.id; document.getElementById('notesViewEl').classList.add('editing'); renderNotes(); };
+      items.appendChild(el);
+    });
+  } else {
+    // Todo lists
+    const filtered = todos.filter(t =>
+      !notesSearch || t.title.toLowerCase().includes(notesSearch.toLowerCase())
+    ).sort((a,b) => b.createdAt - a.createdAt);
+
+    if (!filtered.length) {
+      items.innerHTML = `<div style="padding:20px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text-dim);">No to-do lists yet.<br>Tap + to create one.</div>`;
+    }
+    filtered.forEach(t => {
+      const done = t.items.filter(i => i.done).length;
+      const el = document.createElement('div');
+      el.className = 'todo-item' + (t.id === activeTodoListId ? ' active' : '');
+      el.innerHTML = `
+        <div style="flex:1;overflow:hidden;">
+          <div class="note-item-title">${t.title || 'Untitled list'}</div>
+          <div class="note-item-preview">${done}/${t.items.length} done</div>
+        </div>`;
+      el.onclick = () => { activeTodoListId = t.id; document.getElementById('notesViewEl').classList.add('editing'); renderNotes(); };
+      items.appendChild(el);
+    });
+  }
+
+  listPanel.appendChild(items);
+  view.appendChild(listPanel);
+
+  // Right editor panel
+  if (notesTab === 'notes') {
+    const editorPanel = document.createElement('div');
+    editorPanel.className = 'notes-editor';
+
+    const activeNote = notes.find(n => n.id === activeNoteId);
+    if (!activeNote) {
+      editorPanel.innerHTML = `<div class="notes-empty">
+        <div style="font-size:24px;margin-bottom:4px;">📝</div>
+        <div>Select a note or tap + to create</div>
+      </div>`;
+    } else {
+      editorPanel.innerHTML = `
+        <div class="notes-editor-header">
+          <button class="btn btn-mobile-hide" style="padding:4px 8px;font-size:18px;background:none;border:none;color:var(--text-dim);" onclick="activeNoteId=null;document.getElementById('notesViewEl').classList.remove('editing');renderNotes()">←</button>
+          <input class="notes-editor-title" id="noteTitle" value="${activeNote.title.replace(/"/g,'&quot;')}" placeholder="Title…" oninput="updateNoteTitle(this.value)"/>
+          <button class="btn btn-danger" style="padding:4px 10px;font-size:10px;" onclick="deleteNote('${activeNote.id}')">Delete</button>
+        </div>
+        <textarea class="notes-editor-body" id="noteBody" placeholder="Start writing…" oninput="updateNoteBody(this.value)">${activeNote.body}</textarea>`;
+    }
+    view.appendChild(editorPanel);
+  } else {
+    const todoPanel = document.createElement('div');
+    todoPanel.className = 'todo-editor';
+
+    const activeList = todos.find(t => t.id === activeTodoListId);
+    if (!activeList) {
+      todoPanel.innerHTML = `<div class="notes-empty">
+        <div style="font-size:24px;margin-bottom:4px;">✅</div>
+        <div>Select a list or tap + to create</div>
+      </div>`;
+    } else {
+      const header = document.createElement('div');
+      header.className = 'todo-editor-header';
+      header.innerHTML = `
+        <button class="btn" style="padding:4px 8px;font-size:18px;background:none;border:none;color:var(--text-dim);" onclick="activeTodoListId=null;document.getElementById('notesViewEl').classList.remove('editing');renderNotes()">←</button>
+        <input class="notes-editor-title" value="${activeList.title.replace(/"/g,'&quot;')}" placeholder="List title…" oninput="updateTodoTitle(this.value,'${activeList.id}')"/>
+        <button class="btn btn-danger" style="padding:4px 10px;font-size:10px;" onclick="deleteTodoList('${activeList.id}')">Delete</button>`;
+
+      const addRow = document.createElement('div');
+      addRow.className = 'todo-add-row';
+      addRow.innerHTML = `<input class="todo-add-input" id="todoNewItem" placeholder="Add item…" onkeydown="if(event.key==='Enter')addTodoItem('${activeList.id}')"/>
+        <button class="btn primary" style="padding:7px 12px;" onclick="addTodoItem('${activeList.id}')">Add</button>`;
+
+      const list = document.createElement('div');
+      list.className = 'todo-list-full';
+
+      const undone = activeList.items.filter(i => !i.done);
+      const done = activeList.items.filter(i => i.done);
+      [...undone, ...done].forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'todo-full-item';
+        row.innerHTML = `
+          <div class="todo-full-check ${item.done?'done':''}" onclick="toggleTodoItem('${activeList.id}','${item.id}')"></div>
+          <div class="todo-full-text ${item.done?'done':''}">${item.text}</div>
+          <button class="todo-del" onclick="deleteTodoItem('${activeList.id}','${item.id}')">✕</button>`;
+        list.appendChild(row);
+      });
+
+      if (done.length > 0) {
+        const clearBtn = document.createElement('div');
+        clearBtn.style.cssText = 'padding:10px 20px;';
+        clearBtn.innerHTML = `<button class="btn" style="font-size:10px;width:100%;" onclick="clearDoneTodos('${activeList.id}')">Clear ${done.length} completed</button>`;
+        list.appendChild(clearBtn);
+      }
+
+      todoPanel.appendChild(header);
+      todoPanel.appendChild(addRow);
+      todoPanel.appendChild(list);
+    }
+    view.appendChild(todoPanel);
+  }
+
+  area.appendChild(view);
+}
+
+function switchNotesTab(tab) {
+  notesTab = tab;
+  activeNoteId = null;
+  activeTodoListId = null;
+  renderNotes();
+}
+
+// Note CRUD
+function newNote() {
+  const n = { id: genId(), title: '', body: '', createdAt: Date.now(), updatedAt: Date.now() };
+  notes.unshift(n);
+  activeNoteId = n.id;
+  notesTab = 'notes';
+  saveNotes();
+  renderNotes();
+  setTimeout(() => {
+    const el = document.getElementById('notesViewEl');
+    if (el) el.classList.add('editing');
+    const t = document.getElementById('noteTitle');
+    if (t) t.focus();
+    renderNotes();
+  }, 10);
+}
+function updateNoteTitle(val) {
+  const n = notes.find(n => n.id === activeNoteId);
+  if (n) { n.title = val; n.updatedAt = Date.now(); saveNotes(); }
+}
+function updateNoteBody(val) {
+  const n = notes.find(n => n.id === activeNoteId);
+  if (n) { n.body = val; n.updatedAt = Date.now(); saveNotes(); }
+}
+function deleteNote(id) {
+  notes = notes.filter(n => n.id !== id);
+  activeNoteId = null;
+  saveNotes(); renderNotes();
+  toast('Note deleted');
+}
+
+// Todo CRUD
+function addTodo() {
+  const t = { id: genId(), title: 'New list', items: [], createdAt: Date.now() };
+  todos.unshift(t);
+  activeTodoListId = t.id;
+  notesTab = 'todos';
+  saveTodos(); renderNotes();
+  setTimeout(() => {
+    const el = document.getElementById('notesViewEl');
+    if (el) el.classList.add('editing');
+    renderNotes();
+  }, 10);
+}
+function updateTodoTitle(val, listId) {
+  const t = todos.find(t => t.id === listId);
+  if (t) { t.title = val; saveTodos(); }
+}
+function deleteTodoList(listId) {
+  todos = todos.filter(t => t.id !== listId);
+  activeTodoListId = null;
+  saveTodos(); renderNotes(); toast('List deleted');
+}
+function addTodoItem(listId) {
+  const input = document.getElementById('todoNewItem');
+  const text = input?.value.trim();
+  if (!text) return;
+  const t = todos.find(t => t.id === listId);
+  if (t) { t.items.push({ id: genId(), text, done: false }); saveTodos(); renderNotes(); }
+}
+function toggleTodoItem(listId, itemId) {
+  const t = todos.find(t => t.id === listId);
+  if (t) {
+    const item = t.items.find(i => i.id === itemId);
+    if (item) { item.done = !item.done; saveTodos(); renderNotes(); }
+  }
+}
+function deleteTodoItem(listId, itemId) {
+  const t = todos.find(t => t.id === listId);
+  if (t) { t.items = t.items.filter(i => i.id !== itemId); saveTodos(); renderNotes(); }
+}
+function clearDoneTodos(listId) {
+  const t = todos.find(t => t.id === listId);
+  if (t) { t.items = t.items.filter(i => !i.done); saveTodos(); renderNotes(); }
+}
+
 // ── Cal header ─────────────────────────────────────
 function makeCalHeader() {
   const h = document.createElement('div');
@@ -1308,7 +1762,23 @@ function setView(v) {
   currentView = v;
   document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
   event.target.classList.add('active');
+  // Update FAB label
+  const fab = document.getElementById('mainFab');
+  if (fab) fab.textContent = '+';
   render();
+}
+
+function fabAction() {
+  if (currentView === 'notes') {
+    const notesView = document.getElementById('notesViewEl');
+    if (notesView) {
+      const activeTab = notesView.dataset.tab || 'notes';
+      if (activeTab === 'todos') addTodo();
+      else newNote();
+    }
+  } else {
+    showAdd();
+  }
 }
 
 // ── Add/Edit modal ─────────────────────────────────
@@ -1679,7 +2149,7 @@ async function pushToGist() {
   setSyncStatus('Pushing…', null);
   addLog('Pushing to Gist…');
   try {
-    const payload = { events, version: Date.now() };
+    const payload = { events, notes, todos, version: Date.now() };
     const body = {
       description: 'Park Calendar Sync',
       public: false,
@@ -1751,20 +2221,36 @@ async function pullFromGist() {
     const content = JSON.parse(file.content);
     if (!Array.isArray(content.events)) throw new Error('Invalid calendar data in Gist');
 
-    // Merge: remote wins for any event that exists there; keep local-only events
+    // Merge events
     const remoteIds = new Set(content.events.map(e => e.id));
     const localOnly = events.filter(e => !remoteIds.has(e.id));
     events = [...content.events, ...localOnly];
-    saveEvents();
+    localStorage.setItem('park_cal_events', JSON.stringify(events));
+
+    // Merge notes
+    if (Array.isArray(content.notes)) {
+      const remoteNoteIds = new Set(content.notes.map(n => n.id));
+      const localOnlyNotes = notes.filter(n => !remoteNoteIds.has(n.id));
+      notes = [...content.notes, ...localOnlyNotes];
+      localStorage.setItem('park_cal_notes', JSON.stringify(notes));
+    }
+
+    // Merge todos
+    if (Array.isArray(content.todos)) {
+      const remoteTodoIds = new Set(content.todos.map(t => t.id));
+      const localOnlyTodos = todos.filter(t => !remoteTodoIds.has(t.id));
+      todos = [...content.todos, ...localOnlyTodos];
+      localStorage.setItem('park_cal_todos', JSON.stringify(todos));
+    }
 
     syncConfig.lastSync = new Date().toISOString();
     syncConfig.lastPull = syncConfig.lastSync;
     saveSyncConfigLocal();
     setSyncStatus(`Pulled ${content.events.length} events · ${new Date().toLocaleTimeString()}`, true);
-    addLog(`✓ Pull OK — ${content.events.length} remote + ${localOnly.length} local-only`);
+    addLog(`✓ Pull OK — ${content.events.length} events, ${(content.notes||[]).length} notes, ${(content.todos||[]).length} lists`);
     updateSyncUI();
     render();
-    toast(`Pulled ${content.events.length} events from Gist`);
+    toast(`Synced — ${content.events.length} events, ${(content.notes||[]).length} notes`);
   } catch (e) {
     setSyncStatus('Pull failed: ' + e.message, false);
     addLog('✗ Pull error: ' + e.message);
@@ -1780,6 +2266,56 @@ async function autoSync() {
     await pullFromGist();
   }
   updateSyncUI();
+}
+
+// ── Category management ────────────────────────────
+function showManageCategories() {
+  renderCategoriesList();
+  document.getElementById('categoriesModal').classList.remove('hidden');
+}
+function closeManageCategories() {
+  document.getElementById('categoriesModal').classList.add('hidden');
+  render(); // refresh tag colors everywhere
+}
+
+function renderCategoriesList() {
+  const el = document.getElementById('categoriesList');
+  el.innerHTML = TAGS.map((t, i) => `
+    <div class="cat-row">
+      <input type="color" class="cat-dot-btn" value="${t.color}"
+        onchange="updateCatColor(${i}, this.value)"
+        style="background:${t.color};" />
+      <input class="cat-name-input" value="${t.label}"
+        onchange="updateCatLabel(${i}, this.value)"
+        onblur="updateCatLabel(${i}, this.value)" />
+      <button class="cat-del" onclick="deleteCategory(${i})">✕</button>
+    </div>`).join('');
+}
+
+function updateCatColor(i, color) {
+  TAGS[i].color = color; saveTags(); renderCategoriesList();
+}
+function updateCatLabel(i, label) {
+  if (!label.trim()) return;
+  TAGS[i].label = label.trim();
+  TAGS[i].key = label.trim().toLowerCase().replace(/\s+/g, '_');
+  saveTags();
+}
+function deleteCategory(i) {
+  if (TAGS.length <= 1) { toast('Need at least one category'); return; }
+  TAGS.splice(i, 1); saveTags(); renderCategoriesList();
+}
+function addCategory() {
+  const name = document.getElementById('newCatName').value.trim();
+  const color = document.getElementById('newCatColor').value;
+  if (!name) { toast('Enter a category name'); return; }
+  const key = name.toLowerCase().replace(/\s+/g, '_');
+  if (TAGS.find(t => t.key === key)) { toast('Category already exists'); return; }
+  TAGS.push({ key, label: name, color });
+  saveTags();
+  document.getElementById('newCatName').value = '';
+  renderCategoriesList();
+  toast(`Added "${name}"`);
 }
 
 // ── Toast ──────────────────────────────────────────
